@@ -1,5 +1,5 @@
 //creates variables
-var bananaImg, obstacleImg, obstacleGroup, backImg, score, monkeyAni, back, monkey, END, ground, fruitsg, obstacleg, bananaImg, banana, stone, stoneImg, PLAY, gamestate, c, g, monkeylImg, gImg;
+var bananaImg, obstacleImg, obstacleGroup, backImg, score, monkeyAni, back, monkey, END, ground, fruitsg, obstacleg, bananaImg, banana, stone, stoneImg, PLAY, gamestate, c, g, monkeylImg, monkeyl, gImg;
 
 function preload(){
   //sets a background
@@ -31,7 +31,13 @@ function setup() {
   monkey = createSprite(35,394,10,10);
   monkey.addAnimation("m",monkeyAni);
   monkey.scale=0.1;
- 
+  
+  //creates monkey and its properties
+  monkeyl = createSprite(35,394,10,10);
+  monkeyl.addAnimation("l",monkeylImg);
+  monkeyl.scale=0.1;
+  monkeyl.visible = false;
+  
   //creates ground and ist properties
   ground = createSprite(200,394,400,10);
   ground.visible = false;
@@ -128,14 +134,11 @@ function draw() {
   }
   
   if(gameState===END){
-    //set velcity of all objects to 0
+     //set velcity of all objects to 0
     back.velocityX = 0;
     monkey.destroy();
     stoneg.setVelocityXEach(0);
     fruitg.setVelocityXEach(0);
-    
-    //changes monkey and its properties
-    monkey.changeAnimation("l",monkeylImg);
     
     //set lifetime of the game objects so that they are never destroyed
     stoneg.setLifetimeEach(-1);
@@ -143,10 +146,7 @@ function draw() {
      
     //displays gameover
     g.visible = true;
-    
-    if(mousePressedOver(restart)){
-       reset();
-      }
+    //monkeyl.visible = true;
     
     //draws all the sprites
     drawSprites();
@@ -181,17 +181,4 @@ function rock (){
     //sets lifetime
     stoneg.setLifetimeEach(100);
   }
-}
-
-function reset(){
- gameState=PLAY;
-  
- g.visible = false;
-  
- score=0;
-  
- fruitg.destroyEach();
- stoneg.destroyEach();
-  
- monkey.changeAnimation("m",monkeyAni);
 }
